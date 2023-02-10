@@ -35,6 +35,8 @@ public protocol StringToDateTransformable {
 /// - date: Date only format (short = "2/27/17", medium = "Feb 27, 2017", long = "February 27, 2017", full = "Monday, February 27, 2017"
 /// - time: Time only format (short = "2:22 PM", medium = "2:22:06 PM", long = "2:22:06 PM EST", full = "2:22:06 PM Eastern Standard Time"
 /// - dateTime: Date/Time format (short = "2/27/17, 2:22 PM", medium = "Feb 27, 2017, 2:22:06 PM", long = "February 27, 2017 at 2:22:06 PM EST", full = "Monday, February 27, 2017 at 2:22:06 PM Eastern Standard Time"
+
+
 public enum DateToStringStyles {
 	case iso(_: ISOFormatter.Options)
 	case extended
@@ -49,7 +51,7 @@ public enum DateToStringStyles {
     case dateTimeMixed(dateStyle: DateFormatter.Style, timeStyle: DateFormatter.Style)
 	case custom(_: String)
 	case standard
-    case relative(style: RelativeDateTimeFormatter.DateTimeStyle = .named, unitsStyle: RelativeDateTimeFormatter.UnitsStyle = .short)
+//    case relative(style: RelativeDateTimeFormatter.DateTimeStyle = .named, unitsStyle: RelativeDateTimeFormatter.UnitsStyle = .short)
 
 	public func toString(_ date: DateRepresentable) -> String {
 		switch self {
@@ -82,8 +84,6 @@ public enum DateToStringStyles {
                 $0.dateStyle = dateStyle
                 $0.timeStyle = timeStyle
             }).string(from: date.date)
-		case .relative(let style, let unitStyle):
-            return date.toRelative(since: DateInRegion(),  dateTimeStyle: style, unitsStyle: unitStyle)
 		}
 	}
 
